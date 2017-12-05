@@ -1,0 +1,55 @@
+<!-- app/templates/home/flight_details.html -->
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Select Flight{% endblock %}
+{% block body %}
+
+<script type="text/javascript">
+$(function() {
+    $("#flight_id").autocomplete({
+        source:function(request, response) {
+            $.getJSON("{{url_for('home.autocomplete')}}",{
+                q: request.term, // in flask, "q" will be the argument to look for using request.args
+            }, function(data) {
+                response(data.result);
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+
+            $.ajax({
+                url: "{{url_for('home.get_flight_details')}}",
+                type: 'get',
+                data: {'q' : ui.item.value},
+                success: function(data, status) {
+                    $("#airline").val(data.airline)
+                    $("#departure_airport").val(data.departure_airport)
+                    $("#arrival_airport").val(data.arrival_airport)
+                    $("#arrival_time").val(data.arrival_time)
+                    $("#departure_time").val(data.departure_time)
+                    $("#departure_city").val(data.departure_city)
+                    $("#arrival_city").val(data.arrival_city)
+                    $("#aircraft").val(data.aircraft)
+                    $("#flight_duration").val(data.flight_duration)
+                    $("#airport_code").val(data.airport_code)
+                },
+            });
+        }
+    });
+})
+
+</script>
+<div class="content-section">
+  <div class="center">
+       <h1>Select your Flight</h1>
+            <h2 class="subtitle">Enter your Flight No and date to proceed </h2>
+            <form class="form-group signup" role="form" text-align: center;>
+                <div class="form-group">
+                    {{ wtf.quick_form(form) }}
+                </div>
+            </form>
+  </div>
+</div>
+
+{% endblock %}

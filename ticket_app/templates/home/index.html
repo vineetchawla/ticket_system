@@ -1,0 +1,91 @@
+<!-- app/templates/home/index.html -->
+
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+$( window ).load(function() {
+
+boxes = $('.col-sm-6');
+maxHeight = Math.max.apply(
+Math, boxes.map(function() {
+return $(this).height();
+}).get());
+boxes.height(maxHeight);
+$('.col-sm-12 .panel').height(maxHeight/2-22);//22 = 20 (bottom-margin) + 2 *1 (border)
+});
+
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h2>A new, simple, way to book flight delay insurance</h2>
+                    <h3>Just book insurance and forget it. You get paid automatically if your flight is delayed</h3>
+                    <hr class="intro-divider">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="intro-message">
+        <h3> This is how it works</h3>
+        <h4>1. You enter a flight ID of a German flight and date of the flight.</h4>
+        <h4>2. The platform predicts the flight delay. </h4>
+        <h4>3. Based on the prediction your payout rates are decided for different length of delays. If the delays are
+               predicted, the insurance payout will be lesser. If flight is predicted to be on-time, payout will be higher.</h4>
+        <h4>4. On creating the insurance, you will receive a blockchain receipt of your data. </h4>
+        <h4>5. Based on the actual delay of the flight selected, you will be payed automatically.</h4>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Historical flight data analysis</h3>
+                </div>
+                <div class="panel-body">
+                    For getting the most accurate flight delays for Germany, a huge amount of flight data was collected.
+          A dataset of over 400,000 flights over last six months, including the weather conditions at all German airports.
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Machine Learning</h3>
+                </div>
+                <div class="panel-body">
+                    The dataset was used to predict future flight delays. Based on the prediction,
+            insurance payour rates are decided. A weighted random forest model was selected for the most accurate delay prediction.
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Blockchain</h3>
+                </div>
+                <div class="panel-body">
+                    A secure hash of your data is stored in the Bitcoin blockchain, to ensure your Insurance Agreement was
+            created. The blockchain receipt is provided to you to verify it via any third party too.
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Hassle free claims</h3>
+                </div>
+                <div class="panel-body">
+                    The claims process has been completely removed from the platform. If your flight gets delayed,
+                    you will get payed automatically based on how long your flight was delayed.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

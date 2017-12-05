@@ -1,0 +1,37 @@
+<!-- app/templates/home/flight_details.html -->
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Select Insurance{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="center">
+
+                <h1>Your Flight Insurance details</h1>
+                <h2 class="subtitle">Please select your insurance rate</h2>
+                <table style="width:100%">
+                  <tr>
+                    <th>Flight Delay</th>
+                    <th>You get paid</th>
+                  </tr>
+                    <tr>
+                        <td>No delay</td>
+                        <td> {{ rates.no_delay }} </td>
+                    </tr>
+                    <tr>
+                        <td>Upto 1 hour</td>
+                        <td> {{ rates.upto_15_mins }} €</td>
+                    </tr>
+                    <tr>
+                        <td>Upto 2 housr</td>
+                        <td> {{ rates.upto_1_hour }} €</td>
+                    </tr>
+                    <tr>
+                        <td>More than 2 hours</td>
+                        <td> {{ rates.more_than_1_hour }} €</td>
+                    </tr>
+                </table>
+                <a href="{{ url_for('home.create_insurance') }}">Create Insurance</a>
+  </div>
+</div>
+{% endblock %}
