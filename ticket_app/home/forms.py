@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, DateTimeField
+from wtforms import StringField, SubmitField, SelectField, DateTimeField, TextAreaField
 from wtforms.validators import DataRequired, Email
 
 #Default form for creating tickets, available to even anonymous users
@@ -7,15 +7,15 @@ class CreateTicketForm(FlaskForm):
     first_name = StringField('First Name')
     last_name = StringField('Last Name')
     email = StringField('Email', validators=[DataRequired(), Email()])
-    priority = StringField("Priority")
-    ticket_type = StringField('Type')
-    message = StringField('Massage')
+    priority = SelectField("Priority", choices=[('low', 'Low'), ('mid','Mid'), ('high', 'High')])
+    ticket_type = SelectField('Type', choices=[('task', 'Task'), ('bug', 'Bug'), ('other', 'Other')])
+    message = TextAreaField('Message')
     submit = SubmitField('Submit Ticket')
 
 #Logged in users get to edit and comment on the tickets
 class EditTicketForm(CreateTicketForm):
     Date = DateTimeField('Time created')
-    comment = StringField('Comment')
+    comment = TextAreaField('Comment')
     status = SelectField('Status', choices=[('open', 'Open'), ('in_progress', 'In Progress'),
                                             ('completed', 'Completed'), ('rejected', 'Rejected')])
 
@@ -24,6 +24,9 @@ class ReadTicketForm(FlaskForm):
     first_name = StringField('First Name', render_kw={'readonly': True})
     last_name = StringField('Last Name', render_kw={'readonly': True})
     email = StringField('Email', render_kw={'readonly': True})
-    priority = StringField("Priority", render_kw={'readonly': True})
+    priority = SelectField("Priority", choices=[('low', 'Low'), ('mid','Mid'),
+                                                ('high', 'High')], render_kw={'readonly': True})
+    status = SelectField('Status', choices=[('open', 'Open'), ('in_progress', 'In Progress'),
+                                            ('completed', 'Completed'), ('rejected', 'Rejected')], render_kw={'readonly': True})
     ticket_type = StringField('Type', render_kw={'readonly': True})
-    message = StringField('Massage', render_kw={'readonly': True})
+    message = TextAreaField('Massage', render_kw={'readonly': True})
