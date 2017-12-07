@@ -2,12 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, DateTimeField
 from wtforms.validators import DataRequired, Email
 
-class InsuranceForm(FlaskForm):
-    """
-    Form for user to select insurance
-    """
-    get_insurance = SubmitField('Select Insurance')
-
+#Default form for creating tickets, available to even anonymous users
 class CreateTicketForm(FlaskForm):
     first_name = StringField('First Name')
     last_name = StringField('Last Name')
@@ -24,6 +19,7 @@ class EditTicketForm(CreateTicketForm):
     status = SelectField('Status', choices=[('open', 'Open'), ('in_progress', 'In Progress'),
                                             ('completed', 'Completed'), ('rejected', 'Rejected')])
 
+#To show all tickets to any logged in user
 class ReadTicketForm(FlaskForm):
     first_name = StringField('First Name', render_kw={'readonly': True})
     last_name = StringField('Last Name', render_kw={'readonly': True})
