@@ -5,6 +5,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from flask_migrate import Migrate
 import os
 from config import app_config, Config
 
@@ -17,12 +18,12 @@ def create_app(config_name):
         app = Flask(__name__)
         app.config.update(
             SECRET_KEY=os.getenv('SECRET_KEY'),
-            SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI'),
+            SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL'),
         )
     else:
-        app = Flask(__name__, instance_relative_config=True)
+        app = Flask(__name__)
         app.config.from_object(app_config[config_name])
-        app.config.from_pyfile('config.py')
+        app.config.from_pyfile('/Users/vineetchawla/PycharmProjects/byrd/config.py')
 
     db.init_app(app)
     Bootstrap(app)
@@ -30,6 +31,8 @@ def create_app(config_name):
 
     login_manager.login_message = "You must be logged in to access this page."
     login_manager.login_view = "auth.login"
+
+    migrate = Migrate(app, db)
 
     from ticket_app import models
 
