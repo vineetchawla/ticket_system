@@ -49,11 +49,13 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-class ticket(db.model):
+class Ticket(db.Model):
     """
     contains all the ticket data
     the email links to the user email
     """
+
+    __tablename__ = 'tickets'
 
     ticket_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     ticket_name = db.Column(db.String(60))
@@ -63,6 +65,7 @@ class ticket(db.model):
     urgency = db.Column(db.String(15))
     message = db.Column(db.String(500))
     time = db.Column(db.DateTime)
+    status = db.Column(db.String(15))
 
 
     def __repr__(self):
