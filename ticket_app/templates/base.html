@@ -1,4 +1,4 @@
-<!-- app/templates/base.html -->
+    <!-- app/templates/base.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,7 @@
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="https://www.github.com/vineetchawla/InsuranceWebApp2">Codebase on Github</a></li>
+                  <li><a href="https://github.com/vineetchawla/ticket_system">Codebase on Github</a></li>
                   {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('home.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
