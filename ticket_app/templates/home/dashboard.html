@@ -2,7 +2,7 @@
 
 {% import "bootstrap/utils.html" as utils %}
 {% extends "base.html" %}
-{% block title %}Insurance{% endblock %}
+{% block title %}Open Ticekts{% endblock %}
 {% block body %}
 <div class="content-section">
   <div class="outer">
@@ -12,57 +12,49 @@
         {{ utils.flashed_messages() }}
         <br/>
         <h1 style="text-align:center;"></h1>
-        {% if current_user.has_insurance %}
-          <hr class="intro-divider">
+          {% if ticket_list %}
           <div class="center">
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width="10%"> First Name </th>
-                  <th width="10%"> Last Name </th>
-                  <th width="15%"> Email</th>
-                  <th width="10%"> Flight ID</th>
-                  <th width="15%"> Origin</th>
-                  <th width="15%"> Destination</th>
-                  <th width="10%"> Date</th>
-                  <th width="5%"> Insurance ID</th>
-                  <th width="5%"> Blockchain Status</th>
-                  <th width="5%"> Update Status</th>
+                  <th width="15%"> Name </th>
+                  <th width="40%"> Email </th>
+                  <th width="15%"> Urgency</th>
+                  <th width="15%"> Subject </th>
+                  <th width="15%"> Type </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
                 </tr>
               </thead>
               <tbody>
+                {%  for ticket in ticket_list %}
                 <tr>
-                  <td> {{ current_user.first_name }} </td>
-                  <td> {{ current_user.last_name }} </td>
-                  <td> {{ current_user.email }} </td>
-                  <td> {{ current_user.flight_id }} </td>
-                  <td> {{ current_user.flight_origin }} </td>
-                  <td> {{ current_user.flight_destination }} </td>
-                  <td> {{ current_user.flight_date }} </td>
-                  <td> {{ current_user.insurance_id }} </td>
-                  <td> {{ current_user.status }} </td>
+                    <td> {{ ticket.ticket_name }} </td>
+                    <td> {{ ticket.ticket_email }} </td>
+                    <td> {{ ticket.urgency }} </td>
+                    <td> {{ ticket.subject }}</td>
+                    <td> {{ ticket.type }}</td>
+                    <td>
+                    <a href="{{ url_for('home.edit_ticket', id=ticket.ticket_id) }}">
+                      <i class="fa fa-pencil"></i> Edit
+                    </a>
+                  </td>
                   <td>
-                    <a href="{{ url_for('home.status_update', id=current_user.insurance_id) }}">
-                      <i class="fa fa-refresh"></i> Update status
+                    <a href="{{ url_for('home.delete_ticket', id=ticket.ticket_id) }}">
+                      <i class="fa fa-trash"></i> Delete
                     </a>
                   </td>
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
-              <h3>Blockchain Receipt</h3>
-              <code rows="24" cols="50">
-                  {{ current_user.blockchain_receipt }}
-              </code>
           </div>
-        {% else %}
+          {% else %}
           <div style="text-align: center">
-            <h3> No Insurance has been added. </h3>
+            <h3> No Tickets have been added. </h3>
             <hr class="intro-divider">
-            <a href="{{ url_for('home.flight_details') }}" class="btn btn-default btn-lg">
-                <i class="fa fa-plus"></i> Add A flight Insurance
-            </a>
-        {% endif %}
-        </div>
+          </div>
+      {% endif %}
       </div>
     </div>
   </div>

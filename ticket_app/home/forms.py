@@ -4,10 +4,9 @@ from wtforms.validators import DataRequired, Email
 
 #Default form for creating tickets, available to even anonymous users
 class CreateTicketForm(FlaskForm):
-    first_name = StringField('First Name')
-    last_name = StringField('Last Name')
+    ticket_name = StringField('Name')
     email = StringField('Email', validators=[DataRequired(), Email()])
-    priority = SelectField("Priority", choices=[('low', 'Low'), ('mid','Mid'), ('high', 'High')])
+    urgency = SelectField("Priority", choices=[('low', 'Low'), ('mid','Mid'), ('high', 'High')])
     ticket_type = SelectField('Type', choices=[('task', 'Task'), ('bug', 'Bug'), ('other', 'Other')])
     message = TextAreaField('Message')
     submit = SubmitField('Submit Ticket')
@@ -24,7 +23,7 @@ class ReadTicketForm(FlaskForm):
     first_name = StringField('First Name', render_kw={'readonly': True})
     last_name = StringField('Last Name', render_kw={'readonly': True})
     email = StringField('Email', render_kw={'readonly': True})
-    priority = SelectField("Priority", choices=[('low', 'Low'), ('mid','Mid'),
+    urgency = SelectField("Priority", choices=[('low', 'Low'), ('mid','Mid'),
                                                 ('high', 'High')], render_kw={'readonly': True})
     status = SelectField('Status', choices=[('open', 'Open'), ('in_progress', 'In Progress'),
                                             ('completed', 'Completed'), ('rejected', 'Rejected')], render_kw={'readonly': True})
